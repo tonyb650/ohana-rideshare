@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohana Rideshare - Edit Ride</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="headerBox">
+            <div class="headerLeft">
+                <img src="{{ url_for('static', filename='/palm_left.png') }}" width="75" alt="Palm tree clipart">
+                <h1>Update Your Ride</h1>
+            </div>
+            <div class="headerRight">
+                <span class="link"><a href="/ride/dashboard">home</a></span>
+                <span class="link"><a href="/logout">log out</a></span>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="container">
+            <div class="box2">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="flash">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="/ride/update" method="post">
+                    <input type="hidden" name="id" value="{{ride.id}}">
+                    <input type="hidden" name="destination" value="{{ride.destination}}">
+                    <input type="hidden" name="date" value="{{ride.date}}">
+                    <label for="origin" class="formlabel">Pick-up location:</label>
+                    <input type="text" name="origin" id="origin" class="forminput" value="{{ride.origin}}">
+                    <label for="details"  class="formlabel">Details</label>
+                    <textarea name="details" id="details" cols="75" rows="5" class="forminput">{{ride.details}}</textarea>
+                    <input type="submit" value="Update" class="btn">
+                </form>
+            </div>
+
+        </div>
+    </main>
+</body>

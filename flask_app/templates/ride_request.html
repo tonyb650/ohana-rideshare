@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohana Rideshare - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}">
+    <!-- <link rel="stylesheet" href="../static/style.css"> -->
+</head>
+<body>
+    <header>
+        <div class="headerBox">
+            <div class="headerLeft">
+                <img src="{{ url_for('static', filename='/palm_left.png') }}" width="75" alt="Palm tree clipart">
+                <h1>Request a ride</h1>
+            </div>
+            <div class="headerRight">
+                <span class="link"><a href="/ride/dashboard">home</a></span>
+                <span class="link"><a href="/logout">log out</a></span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="box2">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="flash">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="/ride/create" method="post">
+                    <label for="destination" class="formlabel">Destination</label>
+                    <input type="hidden" name="rider_id" value="{{session['user_id']}}">
+                    <input type="text" name="destination" id="destination" class="forminput" value="{{session['destination']}}">
+                    <label for="origin" class="formlabel">Pick-up location:</label>
+                    <input type="text" name="origin" id="origin" class="forminput" value="{{session['origin']}}">
+                    <label for="ride_date" class="formlabel">Rideshare Date:</label>
+                    <input type="date" id="ride_date" name="date" class="forminput" value="{{session['ride_date']}}">
+                    <label for="details"  class="formlabel">Details</label>
+                    <textarea name="details" id="details" cols="75" rows="5" class="forminput">{{session['details']}}</textarea>
+                    <input type="submit" value="Post Request" class="btn">
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

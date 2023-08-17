@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohana Rideshare - Login</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}"> -->
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <header>
+        <div class="headerBox">
+            <div class="headerLeft">
+                <img src="{{ url_for('static', filename='/palm_left.png') }}" width="75" alt="Palm tree clipart">
+                <h1>Welcome, {{session['user_name']}}</h1>
+            </div>
+            <div class="headerRight">
+                <span class="link"><a href="/ride/add" class="link"><img src="{{ url_for('static', filename='/car_cartoon_flip.png') }}" alt="Ride Request Icon" width="60">request a ride</a></span>
+                <span class="link"><a href="/logout" class="link">log out</a></span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="row">
+            <div class="box">
+                <h2>Rideshare Requests</h2>
+                {% for ride in unbooked_rides %}
+                    {% if ride.rider_id == session['user_id'] %}
+                        <div class="ride_box_own">
+                            <table>
+                                <tr>
+                                    <th>Rider</th>
+                                    <td>{{ride.rider.first_name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Destination</th>
+                                    <td>{{ride.destination}}</td>
+                                </tr>
+                                <tr>
+                                    <th>When needed:</th>
+                                    <td>{{ride.date}}</td>
+                                </tr>
+                            </table>
+                            <a href="/ride/edit/{{ride.id}}">Edit</a> |
+                            <a href="/ride/delete/{{ride.id}}">Delete</a>    
+                            
+                        </div>
+                    {% else %}
+                        <div class="ride_box_other">
+                            <table>
+                                <tr>
+                                    <th>Rider</th>
+                                    <td>{{ride.rider.first_name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Destination</th>
+                                    <td>{{ride.destination}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date:</th>
+                                    <td>{{ride.date}}</td>
+                                </tr>
+                            </table>
+                            <a href="/ride/assign/{{ride.id}}">I can drive!</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="box">
+                <h2>Booked Rideshares</h2>
+                {% for ride in filled_rides %}
+                    {% if ride.rider_id == session['user_id'] %}
+                        <div class="ride_box_as_rider">
+                            <p>You are riding with {{ride.driver.first_name}}</p>
+                            <p>to {{ride.destination}} on {{ride.date}}</p>
+                            <p><a href="/ride/details/{{ride.id}}">Details</a></p>
+
+                        </div>
+                    {% elif ride.driver_id == session['user_id'] %}
+                        <div class="ride_box_as_driver">
+                            <p>You are driving {{ride.rider.first_name}}</p>
+                            <p>to {{ride.destination}} on {{ride.date}}</p>
+                            <p><a href="/ride/details/{{ride.id}}">Details</a> | <a href="/ride/cancel/{{ride.id}}">Cancel</a></p>
+                        </div>
+                    {% else %}
+                        <div class="ride_box_as_neither">
+                            <p>{{ride.driver.first_name}} is driving {{ride.rider.first_name}}</p>
+                            <p>to {{ride.destination}} on {{ride.date}}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>

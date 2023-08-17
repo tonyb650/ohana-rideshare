@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohana Rideshare - Ride Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="headerBox">
+            <div class="headerLeft">
+                <img src="{{ url_for('static', filename='/palm_left.png') }}" width="75" alt="Palm tree clipart">
+                <h1>Ride details</h1>
+            </div>
+            <div class="headerRight">
+                <span class="link"><a href="/ride/dashboard" class="link">home</a></span>
+                <span class="link"><a href="/logout" class="link">log out</a></span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Ready for your trip to {{ride.destination}}?</h2>
+            <table class="box">
+                <tr>
+                    <th>Who's driving?</th>
+                    <td>{{ride.driver.first_name}}</td>
+                </tr>
+                <tr>
+                    <th>Who's coming along?</th>
+                    <td>{{ride.rider.first_name}}</td>
+                </tr>
+                <tr>
+                    <th>Date:</th>
+                    <td>{{ride.date}}</td>
+                </tr>
+                <tr>
+                    <th>Pick-up Location:</th>
+                    <td>{{ride.origin}}</td>
+                </tr>
+                <tr>
+                    <th>Details:</th>
+                    <td>{{ride.details}}</td>
+                </tr>
+            </table>
+            <p><a href="/ride/edit/{{ride.id}}">Edit</a> 
+            {% if ride.rider_id == session['user_id'] %}
+                | <a href="/ride/delete/{{ride.id}}">Delete</a>
+            {% endif %}
+            </p>
+
+        </div>
+        <div class="container">
+            <div class="box2">
+                <h2>Ride Messages</h2>
+                {% for message in messages %}
+                    <p style="margin-bottom: 10px">
+                        {% if session['user_id']== message.sender_id %}
+                            <span style="font-weight: bold;">You:</span>
+                        {% else %}
+                            <span style="font-weight: bold;">{{message.sender.first_name}}:</span>
+                        {% endif %}
+                        <span>{{message.content}}</span>
+                    </p>
+                {% endfor %}
+                <form action="/message/add", method="post">
+                    <input type="hidden" name="ride_id" value="{{ride.id}}">
+                    <input type="hidden" name="sender_id" value="{{session['user_id']}}">
+                    <textarea name="content" id="message" cols="80" rows="2" class="forminput"></textarea>
+                    <input type="submit" value="Send" class="btn-sm">
+                </form>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

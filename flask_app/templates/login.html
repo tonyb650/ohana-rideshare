@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohana Rideshare - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}">
+    <!-- <link rel="stylesheet" href="../static/style.css"> -->
+</head>
+<body>
+    <header>
+        <div class="headerBox">
+            <img src="{{ url_for('static', filename='/palm_left.png') }}" width="100" alt="Palm tree clipart">
+            <h1>Ohana Rideshare</h1>
+            <img src="{{ url_for('static', filename='/palm_right.png') }}" width="100" alt="Palm tree Clipart">
+        </div>
+    </header>
+
+
+    <div class="main">
+        <div class="row">
+            <div class="box">
+                <h2>Register</h2>
+                <form action="/user/register" method="post">
+                    {% with messages = get_flashed_messages(category_filter="registration") %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="flash">{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <label for="" class="formlabel">First Name</label>
+                    <input type="text" class="formcontrol" name="first_name">
+                    <label for="" class="formlabel">Last Name</label>
+                    <input type="text" class="formcontrol" name="last_name">
+                    <label for="" class="formlabel">Email</label>
+                    <input type="text" class="formcontrol" name="email">
+                    <label for="" class="formlabel">Password</label>
+                    <input type="password" class="formcontrol" name="password">
+                    <label for="" class="formlabel">Confirm Password</label>
+                    <input type="password" class="formcontrol" name="confirm_password">
+                    <input type="submit" class="btn" name="submit" value="Submit">
+                </form>
+            </div>
+            <div class="box">
+                <h2>Log in</h2>
+                <form action="/user/login" method="post">
+                    {% with messages = get_flashed_messages(category_filter="login") %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="flash">{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <label for="" class="formlabel">Email</label>
+                    <input type="text" class="formcontrol" name="email">
+                    <label for="" class="formlabel">Password</label>
+                    <input type="password" class="formcontrol" name="password">
+                    <input type="submit" class="btn" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

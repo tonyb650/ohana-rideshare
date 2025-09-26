@@ -1,15 +1,5 @@
 # Ohana Rideshare
 
-
-```sh
-source acitvate...
-pip install requirements.txt
-python server.py
-```
-
-Get tables set up in MySQL
-
-
 <a id="readme-top"></a>
 <!-- PROJECT LOGO -->
 <br />
@@ -54,16 +44,12 @@ Get tables set up in MySQL
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Join Event Animation][join-event-animation]
-
-A fun team project to practice full stack development with MERN stack. While many see pickup sports as a form of "Spontaneous Urban Culture" we wanted trade some of the *spontaneity* for *reliability* with this web app.
-* All users can create events
-* Event creator can also edit the event
-* Events are held in reuseable locations (separate DB table)
-* Users can join events or drop events from their schedule
-* Users who have joined an event can chat about the event
-* Users who have joined an event see a notification if there is chat activity about that event
-* The detail page for the event also shows the weather forecast for that area (using OpenWeatherMap API) 
+A simple platform for riders and drivers to connect and message each other about upcoming rides.
+* Any user can request a ride
+* Any user can 'pick up' a ride (commit to driving)
+* Riders and drivers can add messages to a given ride, sharing updates or other information 
+* Drivers can cancel their commitment
+* Riders can delete rides
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,11 +58,9 @@ A fun team project to practice full stack development with MERN stack. While man
 
 ### Built With
 
-* [![React][React.js]][React-url]
-* [![TailwindCSS][TailwindCSS.com]][Tailwind-url]
-* [![Express][ExpressJS.com]][Express-url]
-* [![MongoDB][MongoDB.com]][Mongo-url]
-
+[![Flask][Flask]][Flask-url]\
+[![Jinja][Jinja]][Jinja-url]\
+[![Mysql][Mysql.com]][Mysql-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -85,15 +69,12 @@ A fun team project to practice full stack development with MERN stack. While man
 <!-- GETTING STARTED -->
 ## Getting Started
 
-**NOTE**: *This project is not complete and served strictly as group learning project.*\
+**NOTE**: *This project is not complete and served strictly as a learning project.*\
 To get a local copy up and running follow these steps.
 
 ### Prerequisites
 
-Node and NPM are required.
-  ```sh
-  npm install npm@latest -g
-  ```
+Python and Pip are required. Visit `https://www.python.org/downloads/`
 
 ### Installation
 
@@ -101,32 +82,41 @@ Node and NPM are required.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/tonyb650/game-finder.git
+   git clone https://github.com/tonyb650/ohana-rideshare.git
    ```
-2. Install NPM packages for `server` and `client` folders
+2. Navigate to project
    ```sh
-   npm install
+   cd ohana-rideshare
    ```
-3. Create database with Mongo Community Edition or MongoDB Atlas
-4. Create `server/.env` file and populate with environment variables
-   ```json
-    ACCESS_TOKEN_SECRET="random_string_of_characters"
-    REFRESH_TOKEN_SECRET="random_string_of_characters"
-    MONGO_USERNAME="username"
-    MONGO_PASSWORD="password"
-    SERVER_PORT=8000
+3. Install virtual environment
+   ```sh
+   py -m venv .venv      # windows
+   python3 -m venv .venv # mac / linux
    ```
-5. Create `client/.env` file and populate with environment OpenWeatherMap API key
-    ```json
-    VITE_REACT_APP_API_KEY="your_open_weather_map_api_key"
-    ```
-6. Update the DB connection string in `server/config/mongoDB.config.ts` to reflect the MongoDB you are connecting to.
-7. Change git remote url to avoid accidental pushes to base project
+4. Activate virtual environment
+   ```sh
+   source .venv/Scripts/activate # windows
+   source .venv/bin/activate     # mac / linux
+   ```
+5. Install requirements
+   ```sh
+    pip install -r requirements.txt
+   ```
+6. Create database with MySQL Workbench
+- Launch MySQL Workbench
+- Go to `File` > `Open Model...` and select the `ohana_rideshare_erd.mwb` file located in `sql_files`
+- Go to `Database` > `Forward Engineer...`
+- Follow the wizard to generate and execute the SQL script
+7. Update the values for 'user' and 'password' in `flask_app/config/mysqlconnection.py` for your local database.
+8. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin github_username/repo_name
    git remote -v # confirm the changes
    ```
-8. Run scripts `npm run dev` for both server and client apps.
+9. Start the application.
+    ```sh
+    python server.py
+    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -135,17 +125,12 @@ Node and NPM are required.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-### Adding Events
-![Add Event Animation][add-event-animation]
-### Chat About Events
-![Event Chat Animation][event-chat-animation]
-### View Event Details
-![Event Details Screen Shot][event-details-screenshot]
-### Search Events
-![Search Events Animation][search-events-animation]
-### User Registration and Login
-![User Login Screen Shot][user-login-screenshot]
-![User Register Screen Shot][user-register-screenshot]
+### Requesting a Ride
+![Request Ride Animation][request-ride-animation]
+### Pick Up a Ride
+![Pick Up Ride Animation][pick-up-ride-animation]
+### Register and Login
+![Login Screen Shot][login-screenshot]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -176,7 +161,7 @@ Tony Brierly
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-Project Link: [Pickup Sportz](https://github.com/tonyb650/game-finder.git)
+Project Link: [Ohana Rideshare](https://github.com/tonyb650/ohana-rideshare.git)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -185,12 +170,9 @@ Project Link: [Pickup Sportz](https://github.com/tonyb650/game-finder.git)
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [So many YouTubers :)](https://youtube.com/)
 * [Best Readme Template](https://github.com/othneildrew/Best-README-Template)
 * [Choose an Open Source License](https://choosealicense.com)
 * [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -199,28 +181,19 @@ Project Link: [Pickup Sportz](https://github.com/tonyb650/game-finder.git)
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[join-event-animation]: z_readme_assets/join_event.gif
-[add-event-animation]: z_readme_assets/add-event.gif
-[search-events-animation]: z_readme_assets/search-events.gif
-[event-chat-animation]: z_readme_assets/event-chat.gif
-[event-details-animation]: z_readme_assets/event-details.gif
+[request-ride-animation]: flask_app/static/request_a_ride.gif
+[pick-up-ride-animation]: flask_app/static/pick_up_a_ride.gif
 
-[event-details-screenshot]: z_readme_assets/event-details-screenshot.png
-[user-login-screenshot]: z_readme_assets/user-login-screenshot.png
-[user-register-screenshot]: z_readme_assets/user-register-screenshot.png
+[login-screenshot]: flask_app/static/ohana_login.png
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/tony-brierly
 
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
+[Flask]: https://img.shields.io/badge/Flask-20232A?style=for-the-badge&logo=flask&logoColor=61DAFB
+[Flask-url]: https://flask.palletsprojects.com/
 
-[TailwindCSS.com]: https://img.shields.io/badge/tailwindcss-041f30?style=for-the-badge&logo=tailwindcss&logoColor=00bcff
-[Tailwind-url]: https://tailwindcss.com
+[Jinja]: https://img.shields.io/badge/jinja-041f30?style=for-the-badge&logo=jinja&logoColor=00bcff
+[Jinja-url]: https://jinja.palletsprojects.com/
 
-[ExpressJS.com]: https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white
-[Express-url]: https://expressjs.com/
-
-[MongoDB.com]: https://img.shields.io/badge/MongoDB-021e2b?style=for-the-badge&logo=mongodb&logoColor=00684a
-[Mongo-url]: https://mongodb.com/
-
+[Mysql.com]: https://img.shields.io/badge/mysql-000000?style=for-the-badge&logo=mysql&logoColor=white
+[Mysql-url]: https://mysql.com/
